@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactions</title>
+
+    <!-- Bootstrap -->
+    <link href="content/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="scripts/bootstrap.min.js"></script>
+</head>
+<body role="document" style="padding-top: 70px">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Welcome, John</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                ::before
+                <ul class="nav navbar-nav">
+                    ::before
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Skill Practice</a>
+                    </li>
+                    <li>
+                        <a href="#">Feedback <span class="badge">5</span></a>
+                    </li>
+                    ::after
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+            <h1>Select an interaction to practice</h1>
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                <th></th>
+                <th>Class</th>
+                <th>Interaction</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
+                        <td>Delegating with Purpose</td>
+                        <td>Delegation<div class="tooltip" data-toggle="tooltip" data-placement="top" title="Testing">Info about interaction</div></td>
+                    </tr>
+                    <tr>
+                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
+                        <td>Driving Change</td>
+                        <td>Encouragement</td>
+                    </tr>
+                    <tr>
+                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
+                        <td>Managing with Style</td>
+                        <td>Developmental Feedback</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        $(function () { $("[data-toggle='tooltip']").tooltip(); });
+    </script>
+</body>
+</html>

@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skill Practice</title>
+
+    <!-- Bootstrap -->
+    <link href="content/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="https://www.webrtc-experiment.com/RecordRTC.js"></script>
+</head>
+<body role="document" style="padding-top: 70px">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Welcome, John</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="active">
+                        <a href="skills.html">Skill Practice</a>
+                    </li>
+                    <li>
+                        <a href="#">Feedback <span class="badge">5</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container theme-showcase" role="main" id="record-practice">
+        <div class="jumbotron">
+            <h1>Welcome to DDI Skill Practice</h1>
+            <div class="container">
+                <video id="camera-preview" controls class="thumbnail"></video>
+                <button class="btn btn-group btn-primary" id="start-recording">Start Recording</button>
+                <button class="btn btn-group btn-danger" id="stop-recording" disabled>Stop Recording</button>
+            </div>
+            <div class="right">
+                <h3>Scenario - Developmental Feedback</h3>
+                <p>You are James, a software development manager in a small company. You have been made aware that one of your team members (Phillip) did not follow the upgrade process agreed upon by the team.  Isabelle, the project lead, mentioned this to you as it caused confusion and put the project behind schedule.  Phillip is technically bright, but sometimes has trouble interacting with others and tends to respond defensively to criticism.</p>
+                <p>You have decided it’s time to talk with Philip about his pattern of behavior and the problems it has  caused. Use your discussion planner to help determine how best to respond to this challenge.  Keep in mind how to effectively use the key principles and interaction guidelines.</p>
+                <p>Once you’re ready with your discussion plan, click the button below to record your response.  A trained DDI feedback provider will be providing you feedback within two days.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container theme-showcase" role="main" id="submit-practice">
+        <div class="jumbotron">
+            <h1>Thank you!</h1>
+            <div class="container">
+                <video id="camera-review" controls class="thumbnail"></video>
+                <div class="container">
+                    <p>What do you think you did well? <textarea class="form-control"></textarea></p>
+                    <p>What do you think you could do better next time? <textarea class="form-control"></textarea></p>
+                </div>
+                <div class="container text-center">
+                    <button class="btn btn-group btn-primary" id="submit-recording">Submit Recording</button>
+                    <button class="btn btn-group btn-danger" id="redo-recording" disabled>Re-Record Practice</button>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        var startRecording = document.getElementById('start-recording');
+        var stopRecording = document.getElementById('stop-recording');
+        var cameraPreview = document.getElementById('camera-preview');
+        var cameraReview = document.getElementById('camera-review');
+
+        var audio = document.querySelector('audio');
+
+        var isFirefox = !!navigator.mozGetUserMedia;
+
+        var recordAudio, recordVideo;
+
+        $("#submit-practice").hide();
+
+        startRecording.onclick = function () {
+            startRecording.disabled = true;
+            navigator.getUserMedia({
+                audio: true,
+                video: true
+            }, function (stream) {
+                cameraPreview.src = window.URL.createObjectURL(stream);
+                cameraPreview.play();
+
+                recordAudio = RecordRTC(stream, {
+                    bufferSize: 16384
+                });
+
+                if (!isFirefox) {
+                    recordVideo = RecordRTC(stream, {
+                        type: 'video'
+                    });
+                }
+
+                recordAudio.startRecording();
+
+                if (!isFirefox) {
+                    recordVideo.startRecording();
+                }
+
+                stopRecording.disabled = false;
+            }, function (error) {
+                alert(JSON.stringify(error));
+            });
+        };
+
+
+        stopRecording.onclick = function () {
+            startRecording.disabled = false;
+            stopRecording.disabled = true;
+
+            recordAudio.stopRecording(function () {
+                if (isFirefox) onStopRecording();
+            });
+
+            if (!isFirefox) {
+                recordVideo.stopRecording();
+                onStopRecording();
+            }
+
+            function onStopRecording() {
+                recordAudio.getDataURL(function (audioDataURL) {
+                    if (!isFirefox) {
+                        recordVideo.getDataURL(function (videoDataURL) {
+                            postFiles(audioDataURL, videoDataURL);
+                        });
+                    } else postFiles(audioDataURL);
+                });
+            }
+        };
+
+        var fileName;
+
+        function postFiles(audioDataURL, videoDataURL) {
+            fileName = getRandomString();
+            var files = {};
+
+            files.audio = {
+                name: fileName + (isFirefox ? '.webm' : '.wav'),
+                type: isFirefox ? 'video/webm' : 'audio/wav',
+                contents: audioDataURL
+            };
+
+            if (!isFirefox) {
+                files.video = {
+                    name: fileName + '.webm',
+                    type: 'video/webm',
+                    contents: videoDataURL
+                };
+            }
+
+            files.isFirefox = isFirefox;
+
+            cameraPreview.src = '';
+            cameraPreview.poster = '/ajax-loader.gif';
+
+            //xhr('/RecordRTC/PostRecordedAudioVideo', JSON.stringify(files), function (_fileName) {
+            xhr('/RecordRTC/PostRecordedAudioVideo', files, function (_fileName) {
+
+                //window.location.replace("thankyou.html");
+                //var href = location.href.substr(0, location.href.lastIndexOf('/') + 1);
+                
+                cameraReview.src = videoDataURL;
+                cameraReview.play();
+
+                $("#submit-practice").show();
+                $("#record-practice").hide();
+
+                //var h2 = document.createElement('h2');
+                //h2.innerHTML = '<a href="' + cameraPreview.src + '">' + cameraPreview.src + '</a>';
+                //document.body.appendChild(h2);
+            });
+        }
+
+        function xhr(url, data, callback) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function () {
+                if (request.readyState == 4 && request.status == 200) {
+                    callback(request.responseText);
+                }
+            };
+            request.open('POST', url);
+            request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            request.send(data);
+        }
+
+        window.onbeforeunload = function () {
+            startRecording.disabled = false;
+        };
+
+        function getRandomString() {
+            if (window.crypto) {
+                var a = window.crypto.getRandomValues(new Uint32Array(3)),
+                    token = '';
+                for (var i = 0, l = a.length; i < l; i++) token += a[i].toString(36);
+                return token;
+            } else {
+                return (Math.random() * new Date().getTime()).toString(36).replace(/\./g, '');
+            }
+        }
+    </script>
+
+
+</body>
+</html>
