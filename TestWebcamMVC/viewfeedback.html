@@ -49,9 +49,31 @@
 
     <div class="container">
         <div class="jumbotron">
-            <h1>Feedback</h1>
-
-        </div>
+            <h3>Feedback</h3>
+            <div class="container">
+                <video id="camera-review" controls width="320" height="240" autoplay class="thumbnail">
+                    <source src="http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/MediaCoder/MediaCoder_test1_1m9s_AVC_VBR_256kbps_640x480_24fps_MPEG2Layer3_CBR_160kbps_Stereo_22050Hz.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="container" id="feedback">
+                <p>Please take a moment to leave feedback on this process</p>
+                <textarea class="form-control">What I liked, disliked and thought</textarea>
+                <button class="btn btn-info">Submit</button>
+            </div>
+            <label id="video-time">Current Time</label>
     </div>
+        <script>
+
+            $("#camera-review").on(
+                "timeupdate", 
+                function(event){
+                    onTrackedVideoFrame(this.currentTime, this.duration);
+                });
+
+
+            function onTrackedVideoFrame(currentTime, duration) {
+                $("#video-time").text(currentTime);
+            }
+        </script>
 </body>
 </html>
