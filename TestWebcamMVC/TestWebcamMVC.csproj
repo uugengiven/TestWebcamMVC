@@ -127,13 +127,13 @@
     <Content Include="ajax-loader.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\test.mp4" />
     <Content Include="favicon.ico" />
     <Content Include="viewfeedback.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="feedback.html" />
-    <Content Include="thankyou.html" />
     <Content Include="index.html" />
     <Content Include="practice.html" />
     <Content Include="Scripts\bootstrap.js" />
