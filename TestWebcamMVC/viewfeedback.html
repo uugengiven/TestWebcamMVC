@@ -51,9 +51,20 @@
         <div class="jumbotron">
             <h3>Feedback</h3>
             <div class="container">
-                <video id="camera-review" controls width="320" height="240" autoplay class="thumbnail">
-                    <source src="http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/MediaCoder/MediaCoder_test1_1m9s_AVC_VBR_256kbps_640x480_24fps_MPEG2Layer3_CBR_160kbps_Stereo_22050Hz.mp4" type="video/mp4">
-                </video>
+                <div class="col-md-3">
+                    <video id="camera-review" controls width="320" height="240" class="thumbnail">
+                        <source src="http://download.wavetlan.com/SVV/Media/HTTP/MP4/ConvertedFiles/MediaCoder/MediaCoder_test1_1m9s_AVC_VBR_256kbps_640x480_24fps_MPEG2Layer3_CBR_160kbps_Stereo_22050Hz.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="col-md-3">
+                    <table>
+                        <tr><td><div class="btn-sm btn-default" id="esteem">Esteem</div></td></tr>
+                        <tr><td><div class="btn-sm btn-danger">Empathy</div></td></tr>
+                        <tr><td><div class="btn-sm btn-primary">Involvement</div></td></tr>
+                        <tr><td><div class="btn-sm btn-warning">Share</div></td></tr>
+                        <tr><td><div class="btn-sm btn-success">Support</div></td></tr>
+                    </table>
+                </div>
             </div>
             <div class="container" id="feedback">
                 <p>Please take a moment to leave feedback on this process</p>
@@ -63,6 +74,8 @@
             <label id="video-time">Current Time</label>
     </div>
         <script>
+
+            $("esteem").removeClass('btn btn-default').addClass('btn btn-info').delay(1200).removeClass('btn btn-info').addClass('btn btn-default');
 
             $("#camera-review").on(
                 "timeupdate", 
