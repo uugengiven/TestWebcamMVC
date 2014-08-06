@@ -74,7 +74,8 @@
             <label id="video-time">Current Time</label>
     </div>
         <script>
-
+            var lastime = 0;
+            var currtime = 0;
             $("esteem").removeClass('btn btn-default').addClass('btn btn-info').delay(1200).removeClass('btn btn-info').addClass('btn btn-default');
 
             $("#camera-review").on(
@@ -82,6 +83,16 @@
                 function(event){
                     onTrackedVideoFrame(this.currentTime, this.duration);
                 });
+
+            function onTrackedVideoFrame(currentTime, duration) {
+                currtime = Math.floor(currentTime);
+                if (currtime != lastime)
+                {
+                    lastime = currtime;
+                    $("#video-time").text(currtime);
+                }
+                
+            }
         </script>
 
         </div>
