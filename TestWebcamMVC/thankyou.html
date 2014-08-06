@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Interactions</title>
+    <title>Thank You</title>
 
     <!-- Bootstrap -->
     <link href="content/bootstrap.min.css" rel="stylesheet">
@@ -21,67 +21,51 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="scripts/bootstrap.min.js"></script>
+  
+
+
 </head>
 <body role="document" style="padding-top: 70px">
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Welcome, John</a>
+                <a class="navbar-brand"href="#">Welcome, John</a>
             </div>
             <div class="navbar-collapse collapse">
-                ::before
                 <ul class="nav navbar-nav">
-                    ::before
-                    <li>
+                    <li class="active">
                         <a href="index.html">Home</a>
                     </li>
-                    <li class="active">
-                        <a href="practice.html">Skill Practice</a>
+                    <li>
+                        <a href="skills.html">Skill Practice</a>
                     </li>
                     <li>
-                        <a href="#">Feedback <span class="badge">5</span></a>
+                        <a href="#">Previous Recordings</a>
                     </li>
                     <li>
                         <a href="Admin.html">Admin</a>
                     </li>
-                    ::after
                 </ul>
             </div>
         </div>
     </div>
+    <div class="container theme-showcase" role="main">
+        <div class="jumbotron">
+            <h1>Thank you!</h1>
+            <div class="container text-center">
+                <img id="camera-preview" class="img-rounded" src="ajax-loader.gif"/><br />
+           </div>
+            <div class="container">
+                <p>What do you think you did well? <textarea class="form-control"></textarea></p>
+                <p>What do you think you could do better next time? <textarea class="form-control"></textarea></p>
+            </div>
+            <div class="container text-center">
+                <button class="btn btn-group btn-primary" id="start-recording">Submit Recording</button>
+                <button class="btn btn-group btn-danger" id="stop-recording" disabled>Re-Record Practice</button>
 
-    <div class="container">
-            <h1>Select an interaction to practice</h1>
-        <div class="col-md-6">
-            <table class="table table-striped">
-                <thead>
-                <th></th>
-                <th>Class</th>
-                <th>Interaction</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
-                        <td>Delegating with Purpose</td>
-                        <td>Delegation<div class="tooltip" data-toggle="tooltip" data-placement="top" title="Testing">Info about interaction</div></td>
-                    </tr>
-                    <tr>
-                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
-                        <td>Driving Change</td>
-                        <td>Encouragement</td>
-                    </tr>
-                    <tr>
-                        <td><a class="btn btn-xs btn-info" href="practice.html">Practice</a></td>
-                        <td>Managing with Style</td>
-                        <td>Developmental Feedback</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
         </div>
-    </div>
 
-    <script>
-        $(function () { $("[data-toggle='tooltip']").tooltip(); });
-    </script>
+    </div>
 </body>
 </html>
