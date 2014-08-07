@@ -21,6 +21,98 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="scripts/bootstrap.min.js"></script>
+    <style>
+        .pulse {
+            padding: 5px 10px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+            background: gray;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
+        }
+        .pulse-blue {
+            background-color: gray;
+            -webkit-animation: anim-blue 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation: anim-blue 2s;
+        }
+
+        .pulse-red {
+            background-color: gray;
+            -webkit-animation: anim-red 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation: anim-red 2s;
+        }
+        .pulse-green {
+
+            background-color: gray;
+            -webkit-animation: anim-green 2s;
+            -webkit-animation-iteration-count: infinite;
+            animation: anim-green 2s;
+        }
+
+        @-webkit-keyframes anim-green {
+            0% {
+                background: gray;
+            }
+
+            20% {
+                background: green;
+            }
+
+            40% {
+                background: gray;
+            }
+
+            60% {
+                background: green;
+            }
+
+            100% {
+                background: gray;
+            }
+        }
+                @-webkit-keyframes anim-blue {
+            0% {
+                background: gray;
+            }
+
+            20% {
+                background: blue;
+            }
+
+            40% {
+                background: gray;
+            }
+
+            60% {
+                background: blue;
+            }
+            100% {
+                background: gray;
+            }
+        }
+
+        @-webkit-keyframes anim-red {
+            0% {
+                background: gray;
+            }
+
+            25% {
+                background: red;
+            }
+
+            50% {
+                background: blue;
+            }
+
+            100% {
+                background: gray;
+            }
+        }
+
+
+    </style>
 </head>
 <body role="document" style="padding-top: 70px">
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -58,11 +150,11 @@
                 </div>
                 <div class="col-md-3">
                     <table>
-                        <tr><td><div class="btn-sm btn-default" id="esteem">Esteem</div></td></tr>
-                        <tr><td><div class="btn-sm btn-danger">Empathy</div></td></tr>
-                        <tr><td><div class="btn-sm btn-primary">Involvement</div></td></tr>
-                        <tr><td><div class="btn-sm btn-warning">Share</div></td></tr>
-                        <tr><td><div class="btn-sm btn-success">Support</div></td></tr>
+                        <tr><td><div class="pulse" id="Esteem">Esteem</div></td></tr>
+                        <tr><td><div class="pulse" id="Empathy">Empathy</div></td></tr>
+                        <tr><td><div class="pulse" id="Involvement">Involvement</div></td></tr>
+                        <tr><td><div class="pulse" id="Share">Share</div></td></tr>
+                        <tr><td><div class="pulse" id="Support">Support</div></td></tr>
                     </table>
                 </div>
             </div>
@@ -72,6 +164,7 @@
                 <button class="btn btn-info">Submit</button>
             </div>
             <label id="video-time">Current Time</label>
+
     </div>
         <script>
             var lastime = 0;
@@ -88,14 +181,35 @@
                 currtime = Math.floor(currentTime);
                 if (currtime != lastime)
                 {
+                    if (currtime > lastime) { //only do actions when time is moving forward
+                        switch (currtime) {
+                            case 1:
+                                $("#video-time").text(currtime);
+                                break;
+                            case 3:
+                                pulseButton("Esteem");
+                                break;
+                            case 5:
+                                pulseButton("Share");
+                                $("#video-time").text("we've hit 5 seconds");
+                                break;
+                               
+                        }
+                    }
                     lastime = currtime;
-                    $("#video-time").text(currtime);
                 }
                 
             }
+
+            function pulseButton(btnName) {
+                var button = $("#" + btnName);
+                button.addClass("pulse-green");
+                button.text(btnName + " +");
+                setTimeout(function () { button.removeClass("pulse-green"); button.text(btnName); }, 3000);
+
+            }
         </script>
 
-        </div>
     </div>
 </body>
 </html>
