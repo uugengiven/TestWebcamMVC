@@ -30,6 +30,9 @@
             background: gray;
             box-shadow: inset 0 1px 0 rgba(255,255,255,.15),0 1px 1px rgba(0,0,0,.075);
         }
+        .pulse-head {
+            background: #C0C0E0;
+        }
         .pulse-blue {
             background-color: gray;
             -webkit-animation: anim-blue 2s;
@@ -56,15 +59,15 @@
                 background: gray;
             }
 
-            20% {
+            25% {
                 background: green;
             }
 
-            40% {
+            50% {
                 background: gray;
             }
 
-            60% {
+            75% {
                 background: green;
             }
 
@@ -77,15 +80,15 @@
                 background: gray;
             }
 
-            20% {
+            25% {
                 background: blue;
             }
 
-            40% {
+            50% {
                 background: gray;
             }
 
-            60% {
+            75% {
                 background: blue;
             }
             100% {
@@ -103,15 +106,22 @@
             }
 
             50% {
-                background: blue;
+                background: gray;
             }
 
+            75% {
+                background: red;
+            }
             100% {
                 background: gray;
             }
         }
 
-
+        .video-player {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body role="document" style="padding-top: 70px">
@@ -121,19 +131,16 @@
                 <a class="navbar-brand" href="#">Welcome, John</a>
             </div>
             <div class="navbar-collapse collapse">
-                ::before
                 <ul class="nav navbar-nav">
-                    ::before
                     <li>
                         <a href="index.html">Home</a>
                     </li>
                     <li>
-                        <a href="skills.html">Skill Practice</a>
+                        <a href="skills.html">Practice</a>
                     </li>
                     <li class="active">
-                        <a href="feedback.html">Feedback <span class="badge">5</span></a>
+                        <a href="feedback.html">Feedback <span class="badge">4</span></a>
                     </li>
-                    ::after
                 </ul>
             </div>
         </div>
@@ -143,13 +150,14 @@
         <div class="jumbotron">
             <h3>Feedback</h3>
             <div class="container">
-                <div class="col-md-3">
-                    <video id="camera-review" controls width="320" height="240" class="thumbnail">
-                        <source src="http://ddi-skillpractice.azurewebsites.net/content/LSG-SkillPractice-Test4-PK.mp4" type="video/mp4">
+                <div class="col-md-4">
+                    <video id="camera-review" controls width="320" height="240" class="video-player">
+                        <source src="http://localhost/LSG-SkillPractice-Test5-CMCG.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="col-md-3">
                     <table>
+                        <tr><td><div class="pulse pulse-head">Key Principle</div></td></tr>
                         <tr><td><div class="pulse" id="Esteem">Esteem</div></td></tr>
                         <tr><td><div class="pulse" id="Empathy">Empathy</div></td></tr>
                         <tr><td><div class="pulse" id="Involvement">Involvement</div></td></tr>
@@ -159,17 +167,17 @@
                 </div>
             </div>
             <div class="container" id="feedback">
-                <p>Please take a moment to leave feedback on this process</p>
-                <textarea class="form-control">What I liked, disliked and thought</textarea>
-                <button class="btn btn-info">Submit</button>
+                <div class="col-md-6">
+                    <p>Please take a moment to leave feedback on this process</p>
+                    <textarea class="form-control">What I liked, disliked and thought</textarea>
+                    <button class="btn btn-info">Submit</button>
+                </div>
             </div>
-            <label id="video-time">Current Time</label>
 
     </div>
         <script>
             var lastime = 0;
             var currtime = 0;
-            $("esteem").removeClass('btn btn-default').addClass('btn btn-info').delay(1200).removeClass('btn btn-info').addClass('btn btn-default');
 
             $("#camera-review").on(
                 "timeupdate", 
@@ -183,17 +191,19 @@
                 {
                     if (currtime > lastime) { //only do actions when time is moving forward
                         switch (currtime) {
-                            case 1:
-                                $("#video-time").text(currtime);
-                                break;
-                            case 3:
+                            case 55:
                                 pulseButton("Esteem");
                                 break;
-                            case 5:
-                                pulseButton("Share");
-                                $("#video-time").text("we've hit 5 seconds");
+                            case 90:
+                                pulseButtonBlue("Empathy");
                                 break;
-                               
+                            case 125:
+                                pulseButton("Involvement");
+                                break;
+                            case 155:
+                                pulseButton("Esteem");
+                                break;
+
                         }
                     }
                     lastime = currtime;
@@ -206,6 +216,14 @@
                 button.addClass("pulse-green");
                 button.text(btnName + " +");
                 setTimeout(function () { button.removeClass("pulse-green"); button.text(btnName); }, 3000);
+
+            }
+
+            function pulseButtonBlue(btnName) {
+                var button = $("#" + btnName);
+                button.addClass("pulse-blue");
+                //button.text(btnName + " +"); // do not show a + on developmental colors
+                setTimeout(function () { button.removeClass("pulse-blue"); button.text(btnName); }, 3000);
 
             }
         </script>
