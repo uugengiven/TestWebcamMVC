@@ -152,7 +152,7 @@
             <div class="container">
                 <div class="col-md-4">
                     <video id="camera-review" controls width="320" height="240" class="video-player">
-                        <source src="http://localhost/LSG-SkillPractice-Test5-CMCG.mp4" type="video/mp4">
+                        <source src="http://ddi-mp4host.cloudapp.net/video/LSG-SkillPractice-Test7-CMCG2.mp4" type="video/mp4">
                     </video>
                 </div>
                 <div class="col-md-3">
@@ -191,17 +191,23 @@
                 {
                     if (currtime > lastime) { //only do actions when time is moving forward
                         switch (currtime) {
-                            case 55:
+                            case 1:
+                                pulseButton("Esteem"); // Test actions to show how they work initially
+                                break;
+                            case 5:
+                                pulseButton("Empathy");
+                                break;
+                            case 8:
+                                pulseButtonBlue("Invovlement");
+                                break;
+                            case 134:
+                                pulseButtonBlue("Involvement");
+                                break;
+                            case 194:
                                 pulseButton("Esteem");
                                 break;
-                            case 90:
-                                pulseButtonBlue("Empathy");
-                                break;
-                            case 125:
+                            case 225:
                                 pulseButton("Involvement");
-                                break;
-                            case 155:
-                                pulseButton("Esteem");
                                 break;
 
                         }
